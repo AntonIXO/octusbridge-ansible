@@ -1,0 +1,9 @@
+---
+- hosts: all
+  gather_facts: yes
+  roles:
+    - frontend
+    - relay
+    - contracts
+  tags: [ "all" ]
+

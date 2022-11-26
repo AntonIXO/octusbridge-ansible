@@ -1,0 +1,13 @@
+---
+
+user: relay
+frontend_dir: /opt/front
+
+src_dir: /opt/relay
+rust_flags: -C opt-level=3 -C target_cpu=native -C llvm-args=-cost-kind=latency -C linker-plugin-lto -C link-arg=-fuse-ld=lld
+config_dir: /etc/relay
+database_dir: /var/db/relay
+
+network_config_url: https://raw.githubusercontent.com/tonlabs/main.ton.dev/master/configs/ton-global.config.json
+
+remove_src_dir: # Remove source directory after installing relay.

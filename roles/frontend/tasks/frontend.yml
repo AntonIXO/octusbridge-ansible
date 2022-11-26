@@ -1,0 +1,32 @@
+---
+- name: Create {{ user }} user
+  hosts: frontend
+  user:
+        name: {{ user }}
+        comment: Octusbridge Frontend
+        group: admin
+
+- name: Setup files
+  hosts: frontend
+  become: True
+  become_user: {{ user }}
+  include_role: node_install
+  tasks:
+      - name: Clone git
+        git:
+          repo: https://github.com/broxus/octusbridge-frontend.git
+          dest: {{ src_dir }}
+          clone: yes
+          update: yes
+      - name: Install dependencies
+        npm:
+          path: {{ src_dir }}
+          ci: true
+      - name: Start the application
+        command:
+          chdir: /home/{{ src_dir }}
+          cmd: npm run build
+      - name: Ensure app is running
+        shell: ps aux | grep node
+        register: app_status
+      - debug: msg={{app_status.stdout_lines}}-
