@@ -1,4 +1,8 @@
 ---
 
 user: octusfront
+
+apt_packages: git 
+dnf_packages: 
+
 src_dir: /opt/front

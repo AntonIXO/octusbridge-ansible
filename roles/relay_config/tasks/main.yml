@@ -1,0 +1,22 @@
+---
+- name: Create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: relay
+    group: relay
+  loop:
+    - "{{ config_dir }}"
+    - "{{ database_dir }}"
+- name: Move relay config
+  copy:
+    src: "{{ src_dir }}/contrib/config.yaml"
+    dest: "{{ config_dir }}"
+- name: Get node config
+  get_url: 
+    url: "{{ network_config_url }}"
+    dest: "{{ config_dir }}/global.config.json"
+- name: Generate config
+  shell: 
+    cmd: relay generate
+    

@@ -1,0 +1,30 @@
+---
+- name: Clone relay repo
+  git:
+    repo: https://github.com/broxus/octusbridge-relay.git
+    dest: "{{ src_dir }}"
+    clone: true
+    update: true
+- name: Build relay binary
+  community.general.cargo:
+    name: relay
+    path: /
+  environment:
+    RUSTFLAGS: "{{ rust_flags }}"
+- name: Copy relay systemd service
+  copy:
+    src: "{{ src_dir }}/contrib/relay.native.service"
+    dest: /etc/systemd/system/relay.service
+    owner: root
+    group: root
+    mode: '0644'
+- name: Enable systemd unit
+  systemd:
+    daemon_reload: true
+    name: relay
+    enabled: true
+- name: Enable systemd unit
+  systemd:
+    name: systemd-timesyncd
+    state: restarted
+    

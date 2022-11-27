@@ -1,0 +1,18 @@
+- name: Install epel-release package in centos
+  dnf: 
+    name: 
+      - epel-release
+    state: latest
+  when: ansible_facts['distribution'] == "CentOS"
+
+- name: Install epel-release package in oracle
+  dnf: 
+    name: 
+      - oracle-epel-release-el8
+    state: latest
+  when: ansible_facts['distribution'] == "OracleLinux"
+
+- name: Install system packages
+  dnf:
+    name: {{ dnf_packages }}
+    state: latest

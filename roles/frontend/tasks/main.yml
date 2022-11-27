@@ -1,0 +1,17 @@
+---
+- name: Clone git
+  git:
+    repo: https://github.com/broxus/octusbridge-frontend.git
+    dest: "{{ src_dir }}"
+    clone: true
+    update: true
+
+- name: Install dependencies
+  npm:
+    path: "{{ src_dir }}"
+    ci: true
+
+- name: Start the application
+  command:
+    chdir: "/home/{{ src_dir }}"
+    cmd: npm run build

@@ -1,0 +1,15 @@
+[Unit]
+Description=relay
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=3
+WorkingDirectory=/etc/relay
+ExecReload=kill -HUP $MAINPID
+ExecStart=/usr/bin/relay run --config /etc/relay/config.yaml --global-config /etc/relay/global.config.json
+
+[Install]
+WantedBy=multi-user.target

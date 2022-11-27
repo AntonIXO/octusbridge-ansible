@@ -1,0 +1,22 @@
+---
+- name: Create octusbridge group
+  group:
+    name: "{{ user_group }}"
+    state: present
+
+- name: Create "{{ user }}" user
+  user:
+    name: "{{ user }}"
+    comment: "OctusBridge {{ user }} user"
+    group: "{{ user_group }}"
+    shell: /bin/bash
+    state: present
+  register: user_created
+
+- name: Create dirs
+  file:
+    path: "{{ src_dir }}"
+    state: directory
+    mode: u=rwx,g=rx,o=
+    owner: "{{ user }}"
+    group: "{{ user_group }}"

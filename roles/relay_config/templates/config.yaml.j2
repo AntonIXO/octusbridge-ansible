@@ -1,0 +1,117 @@
+---
+# Keystore password
+master_password: "${RELAY_MASTER_KEY}"
+# Your address from which you specified keys
+staker_address: "${RELAY_STAKER_ADDRESS}"
+bridge_settings:
+  # Keystore data path
+  keys_path: "/etc/relay/keys.json"
+  # Bridge contract address
+  bridge_address: "0:1d51fb47566d0d283ebbf83c641c01ebebaad6c3cec55895b0074b802036094e"
+  # If set, relay will not participate in elections. Default: false
+  ignore_elections: false
+  # EVM network configs
+  evm_networks:
+    # Ethereum
+    - chain_id: 1
+      # RPC node HTTP endpoint
+      endpoint: "${ETH_MAINNET_URL}"
+      # Timeout, used for simple getter requests. Default: 10
+      get_timeout_sec: 10
+      # Timeout, used for processing eth_getLogs response. Default: 120
+      blocks_processing_timeout_sec: 120
+      # Max simultaneous connection count. Default: 10
+      pool_size: 10
+      # Idle polling interval. Default: 60
+      poll_interval_sec: 60
+      # Maximum blocks range for getLogs request
+      max_block_range: 5000
+    # Smart Chain
+    - chain_id: 56
+      # Public endpoint
+      endpoint: https://bsc-dataseed.binance.org
+      get_timeout_sec: 10
+      pool_size: 10
+      poll_interval_sec: 60
+      max_block_range: 5000
+    # Fantom Opera
+    - chain_id: 250
+      # Public endpoint
+      endpoint: https://rpc.ftm.tools
+      get_timeout_sec: 10
+      pool_size: 10
+      poll_interval_sec: 60
+      max_block_range: 5000
+    # Polygon
+    - chain_id: 137
+      endpoint: "${POLYGON_URL}"
+      get_timeout_sec: 10
+      pool_size: 10
+      poll_interval_sec: 60
+      max_block_range: 5000
+    # Milkomeda
+    - chain_id: 2001
+      endpoint: https://rpc-mainnet-cardano-evm.c1.milkomeda.com
+      get_timeout_sec: 10
+      pool_size: 10
+      poll_interval_sec: 60
+      maximum_failed_responses_time_sec: 604800
+    # Avalanche Network
+    - chain_id: 43114
+      endpoint: https://api.avax.network/ext/bc/C/rpc
+      get_timeout_sec: 10
+      pool_size: 10
+      poll_interval_sec: 60
+      maximum_failed_responses_time_sec: 604800
+  # Solana network config
+  sol_network:
+    # Public endpoint
+    endpoint: https://solana-api.projectserum.com
+    # Commitment level
+    commitment: "finalized"
+  # ETH address verification settings
+  address_verification:
+    # Minimal balance on user's wallet to start address verification
+    # Default: 50000000 (0.05 ETH)
+    min_balance_gwei: 50000000
+    # Fixed gas price. Default: 300
+    gas_price_gwei: 300
+    # Path to the file with transaction state.
+    # Default: "./verification-state.json"
+    state_path: "/etc/relay/verification-state.json"
+node_settings:
+  # Root directory for relay DB. Default: "./db"
+  db_path: "/var/db/relay"
+  # UDP port, used for ADNL node. Default: 30303
+  adnl_port: 30000
+  # Path to temporary ADNL keys.
+  # NOTE: Will be generated if it was not there.
+  # Default: "./adnl-keys.json"
+  temp_keys_path: "/etc/relay/adnl-keys.json"
+metrics_settings:
+  # Listen address of metrics. Used by the client to gather prometheus metrics.
+  # Default: "127.0.0.1:10000"
+  listen_address: "0.0.0.0:10000"
+  # URL path to the metrics. Default: "/"
+  # Example: `curl http://127.0.0.1:10000/metrics`
+  metrics_path: "/metrics"
+  # Metrics update interval in seconds. Default: 10
+  collection_interval_sec: 10
+# log4rs settings.
+# See https://docs.rs/log4rs/1.0.0/log4rs/ for more details
+logger_settings:
+  appenders:
+    stdout:
+      kind: console
+      encoder:
+        pattern: "{h({l})} {M} = {m} {n}"
+  root:
+    level: error
+    appenders:
+      - stdout
+  loggers:
+    relay:
+      level: info
+      appenders:
+        - stdout
+      additive: false

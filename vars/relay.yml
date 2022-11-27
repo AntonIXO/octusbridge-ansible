@@ -1,7 +1,9 @@
 ---
 
 user: relay
-frontend_dir: /opt/front
+
+apt_packages: build-essential llvm clang git pkg-config openssl
+dnf_packages: 
 
 src_dir: /opt/relay
 rust_flags: -C opt-level=3 -C target_cpu=native -C llvm-args=-cost-kind=latency -C linker-plugin-lto -C link-arg=-fuse-ld=lld

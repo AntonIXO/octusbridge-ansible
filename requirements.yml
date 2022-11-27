@@ -1,5 +1,6 @@
 ---
 collections:
 - community.general
-- hurricanehrndz.rustup
-- community.general.cargo
+
+roles:
+  - name: hurricanehrndz.rustup
