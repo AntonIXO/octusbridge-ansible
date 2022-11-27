@@ -4,3 +4,4 @@ collections:
 
 roles:
   - name: hurricanehrndz.rustup
+  - name: grzegorznowak.nvm_node

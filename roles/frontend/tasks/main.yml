@@ -11,7 +11,12 @@
     path: "{{ src_dir }}"
     ci: true
 
-- name: Start the application
+- name: Serve build
   command:
-    chdir: "/home/{{ src_dir }}"
+    chdir: "{{ src_dir }}"
     cmd: npm run build
+
+- name: Start app
+  command:
+    chdir: "{{ src_dir }}"
+    cmd: npm run start

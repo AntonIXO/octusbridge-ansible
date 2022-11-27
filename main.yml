@@ -1,32 +1,15 @@
 ---
-
-- name: Setup system for frontend
-  hosts: frontend
-  gather_facts: yes
-  vars_files:
-    - vars/frontend.yml
-  roles:
-    - system
-  tags: [ "all" ]
-
-- name: Setup system for relayers
-  hosts: relay
-  gather_facts: yes
-  vars_files:
-    - vars/relay.yml
-  roles:
-    - system
-  tags: [ "all" ]
-
 - name: Deploy frontend
   hosts: frontend
   gather_facts: yes
   become: true
-  become_user: {{ user }}
+  become_user: "{{ user }}"
   vars_files:
+    - vars/main.yml
     - vars/frontend.yml
   roles:
-    - system
+    - role: system
+      become: true
     - frontend
   tags: [ "all" ]
 
@@ -34,10 +17,14 @@
   hosts: relay
   gather_facts: yes
   become: true
-  become_user: {{ user }}
+  become_user: "{{ user }}"
   vars_files:
+    - vars/main.yml
     - vars/relay.yml
   roles:
+    - role: system
+      become: true
+      become_user: root
     - hurricanehrndz.rustup
     - relay_install
     - relay_config

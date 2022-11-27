@@ -1,3 +1,5 @@
 
+allow_world_readable_tmpfiles: true
+
 user_group: octusbridge
 warning: Warning! This is generated with Jinja!

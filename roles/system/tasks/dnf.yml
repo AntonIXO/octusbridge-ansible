@@ -14,5 +14,5 @@
 
 - name: Install system packages
   dnf:
-    name: {{ dnf_packages }}
+    name: "{{ dnf_packages }}"
     state: latest
