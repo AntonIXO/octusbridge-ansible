@@ -3,29 +3,25 @@
   hosts: frontend
   gather_facts: yes
   become: true
-  become_user: "{{ user }}"
   vars_files:
     - vars/main.yml
     - vars/frontend.yml
   roles:
-    - role: system
+    - system
+    - role: frontend
       become: true
-    - frontend
+      become_user: octusfront
   tags: [ "all" ]
 
 - name: Deploy relayers
   hosts: relay
   gather_facts: yes
   become: true
-  become_user: "{{ user }}"
   vars_files:
     - vars/main.yml
     - vars/relay.yml
   roles:
-    - role: system
-      become: true
-      become_user: root
-    - hurricanehrndz.rustup
+    - system
     - relay_install
     - relay_config
   tags: [ "all" ]

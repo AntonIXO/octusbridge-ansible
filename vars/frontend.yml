@@ -3,7 +3,7 @@
 user: octusfront
 
 node_version: 16 # NodeJS big number versio, like 16, 18...
-apt_packages: git curl acl build-essential libssl-dev nodejs
-dnf_packages: git curl nodejs:{{ node_version }}
+apt_packages: git, curl, acl, build-essential, libssl-dev, nodejs # Write separated by commas.
+dnf_packages: git, curl, nodejs:{{ node_version }}
 
 src_dir: /opt/front

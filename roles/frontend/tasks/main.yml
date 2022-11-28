@@ -11,12 +11,9 @@
     path: "{{ src_dir }}"
     ci: true
 
-- name: Serve build
-  command:
-    chdir: "{{ src_dir }}"
-    cmd: npm run build
-
-- name: Start app
+- name: Build and run
   command:
     chdir: "{{ src_dir }}"
     cmd: npm run start
+  async: 1000
+  poll: 0

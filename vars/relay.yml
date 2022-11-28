@@ -2,11 +2,11 @@
 
 user: relay
 
-apt_packages: build-essential llvm clang git pkg-config openssl acl
-dnf_packages: llvm clang git
+apt_packages: build-essential, llvm, clang, git, pkg-config, openssl, acl, cargo # Write separated by commas.
+dnf_packages: llvm, clang, git, cargo
 
 src_dir: /opt/relay
-rustup_user: "{{ user }}"
+
 rust_flags: -C opt-level=3 -C target_cpu=native -C llvm-args=-cost-kind=latency -C linker-plugin-lto -C link-arg=-fuse-ld=lld
 config_dir: /etc/relay
 database_dir: /var/db/relay

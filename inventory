@@ -1,6 +1,6 @@
 [all:vars]
 ansible_user=pepe
 [frontend]
-158.160.17.207
+51.250.108.244
 [relay]
-158.160.17.207
+51.250.20.41

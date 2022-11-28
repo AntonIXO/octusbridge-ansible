@@ -17,6 +17,17 @@
   file:
     path: "{{ src_dir }}"
     state: directory
+
+- name: Include os specific tasks
+  include_tasks: "{{ ansible_pkg_mgr }}.yml"
+
+- name: Download Rust init
+  get_url:
+    url: '{{ rustup_mirror }}/{{ rustup_platform }}/rustup-init'
+    dest: '/usr/local/bin/rustup-init'
     mode: u=rwx,g=rx,o=
-    owner: "{{ user }}"
-    group: "{{ user_group }}"
+  when: rustup_mirror is defined
+
+- name: Install Rust
+  command: '/usr/local/bin/rustup-init -y --default-toolchain {{ rustup_default_toolchain }}'
+  when: rustup_default_toolchain is defined

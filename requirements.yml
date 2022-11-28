@@ -1,7 +1,3 @@
 ---
 collections:
 - community.general
-
-roles:
-  - name: hurricanehrndz.rustup
-  - name: grzegorznowak.nvm_node
